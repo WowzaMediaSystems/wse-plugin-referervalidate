@@ -1,3 +1,6 @@
+/**
+ * Wowza server software and all components Copyright 2006 - 2016, Wowza Media Systems, LLC, licensed pursuant to the Wowza Media Software End User License Agreement.
+ */
 package com.wowza.wms.plugin;
 
 import java.util.ArrayList;
