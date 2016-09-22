@@ -9,7 +9,6 @@ The Wowza™ Module Collection build 12557 or later is required.
 ## Usage
 Adding an image tag or JavaScript to the embedded player webpage with a specified image path that points towards your Wowza server allows Wowza to validate the requestor and then enable the stream for playback. If the player is configured to start automatically or the page may take longer to load, the image tag should be positioned on the page before the embedded player. For example, you can add the following to the webpage:
 ```
-<?xml version="1.0" encoding="UTF-8"?>
 <image src="http://[wowza-ip-address]:1935/[stream-path]/image.gif" />
 ```
 Where the **[stream-path]** is the stream path in the player (such as **vod/sample.mp4** or **live/_definst_/myStream**), and the **image.gif** is the **Requestfilter** defined in the default streaming hostport section of the **[install-dir]/conf/VHost.xml** configuration file. See [Configuration](https://www.wowza.com/forums/content.php?614-How-to-control-access-to-your-application-by-checking-referer-domain-(RefererValidate)#configuration) for more information.
