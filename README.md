@@ -1,4 +1,4 @@
-# Referer Validate 
+# RefererValidate 
 The **RefererValidate** module and HTTP Provider for [Wowza Streaming Engine™ media server software](https://www.wowza.com/products/streaming-engine) can be used to control access to your streams based on the referer domain. It is designed for use with players that aren't RTMP-based, and uses an image tag or JavaScript added to the player webpage to validate the requester.
 
 ## Prerequisites
