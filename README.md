@@ -4,8 +4,6 @@ The **RefererValidate** module and HTTP Provider for [Wowza Streaming Engine™ 
 ## Prerequisites
 Wowza Streaming Engine 4.0.3 or later is required.
 
-The Wowza™ Module Collection build 12557 or later is required.
-
 ## Usage
 Adding an image tag or JavaScript to the embedded player webpage with a specified image path that points towards your Wowza server allows Wowza to validate the requestor and then enable the stream for playback. If the player is configured to start automatically or the page may take longer to load, the image tag should be positioned on the page before the embedded player. For example, you can add the following to the webpage:
 ```
