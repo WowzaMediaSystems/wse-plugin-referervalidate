@@ -1,5 +1,6 @@
-/**
- * Wowza server software and all components Copyright 2006 - 2016, Wowza Media Systems, LLC, licensed pursuant to the Wowza Media Software End User License Agreement.
+/*
+ * This code and all components (c) Copyright 2006 - 2018, Wowza Media Systems, LLC. All rights reserved.
+ * This code is licensed pursuant to the Wowza Public License version 1.0, available at www.wowza.com/legal.
  */
 package com.wowza.wms.plugin;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.wowza.util.StringUtils;
 import com.wowza.wms.amf.AMFDataList;
 import com.wowza.wms.application.*;
 import com.wowza.wms.client.IClient;
@@ -70,7 +72,7 @@ public class RefererValidate extends ModuleBase
 				logger.info(MODULE_NAME + ": Client is publisher. Passing further checks to ModuleCoreSecurity. " + ipAddress + ": " + flashVersion, WMSLoggerIDs.CAT_application, WMSLoggerIDs.EVT_comment);
 			return;
 		}
-		if (!checkSession(ipAddress, null))
+		if (!checkSession(ipAddress, null, StringUtils.isEmpty(client.getReferrer())))
 		{
 			client.rejectConnection();
 			if (debugLog)
@@ -83,7 +85,7 @@ public class RefererValidate extends ModuleBase
 		String ipAddress = client.getIp();
 		String streamName = params.getString(PARAM1);
 		String aliasedName = ((ApplicationInstance)appInstance).internalResolvePlayAlias(streamName, client);
-		if (checkSession(ipAddress, aliasedName))
+		if (checkSession(ipAddress, aliasedName, StringUtils.isEmpty(client.getReferrer())))
 		{
 			invokePrevious(client, function, params);
 		}
@@ -107,7 +109,7 @@ public class RefererValidate extends ModuleBase
 			logger.info(MODULE_NAME + ": http request streamName [" + streamName + "]", WMSLoggerIDs.CAT_application, WMSLoggerIDs.EVT_comment);
 		}
 
-		if (!checkSession(ipAddress, streamName))
+		if (!checkSession(ipAddress, streamName, StringUtils.isEmpty(httpSession.getReferrer())))
 		{
 			httpSession.rejectSession();
 			if (debugLog)
@@ -131,7 +133,7 @@ public class RefererValidate extends ModuleBase
 		RTPUrl url = new RTPUrl(uri);
 		String streamName = url.getStreamName();
 		String aliasedName = ((ApplicationInstance)appInstance).internalResolvePlayAlias(streamName, rtpSession);
-		if (checkSession(ipAddress, aliasedName))
+		if (checkSession(ipAddress, aliasedName, StringUtils.isEmpty(rtpSession.getReferrer())))
 		{
 			rtpSession.rejectSession();
 			if (debugLog)
@@ -139,7 +141,7 @@ public class RefererValidate extends ModuleBase
 		}
 	}
 
-	private boolean checkSession(String ipAddress, String streamName)
+	private boolean checkSession(String ipAddress, String streamName, boolean blankReferer)
 	{
 		if (debugLog)
 			logger.info(MODULE_NAME + ".checkSession [" + ipAddress + ": " + streamName + "]", WMSLoggerIDs.CAT_application, WMSLoggerIDs.EVT_comment);
@@ -225,7 +227,7 @@ public class RefererValidate extends ModuleBase
 			}
 		}
 
-		if (!pass && appInstance.getProperties().getPropertyBoolean(PROP_NAME_PREFIX + "AllowBlankReferers", ALLOW_BLANK_REFERERS))
+		if (!pass && blankReferer && appInstance.getProperties().getPropertyBoolean(PROP_NAME_PREFIX + "AllowBlankReferers", ALLOW_BLANK_REFERERS))
 		{
 			long sessionDuration = appInstance.getProperties().getPropertyLong(PROP_NAME_PREFIX + "SessionValidDuration", SESSION_VALID_DURATION_DEFAULT);
 			validator.addNewSession(appInstance.getApplication().getName(), appInstance.getName(), streamName, ipAddress, null, null, sessionDuration);
