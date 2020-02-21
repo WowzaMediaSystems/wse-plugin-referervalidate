@@ -14,7 +14,7 @@ Where the **[stream-path]** is the stream path in the player (such as **vod/samp
 When an HTTP request is sent to a Wowza Streaming Engine media server by an image tag or JavaScript on the player webpage,the **RefererValidate** module validates it based on the domain from which the request originated. After the requester is validated, the session information is stored and an image is returned; the image can be the default 1x1-pixel transparent GIF or a different image configured for each stream. If the request isn't validated, you can return the default 404 error code or a different HTTP error code that you've configured.
 
 ## More resources
-[Wowza Streaming Engine Server-Side API Reference](https://www.wowza.com/resources/WowzaStreamingEngine_ServerSideAPI.pdf)
+[Wowza Streaming Engine Server-Side API Reference](https://www.wowza.com/resources/serverapi/)
 
 [How to extend Wowza Streaming Engine using the Wowza IDE](https://www.wowza.com/forums/content.php?759-How-to-extend-Wowza-Streaming-Engine-using-the-Wowza-IDE)
 
@@ -27,5 +27,3 @@ To use the compiled version of this module, see [How to control access to your a
 
 ## License
 This code is distributed under the [Wowza Public License](https://github.com/WowzaMediaSystems/wse-plugin-referervalidate/blob/master/LICENSE.txt).
-
-![alt tag](http://wowzalogs.com/stats/githubimage.php?plugin=wse-plugin-referervalidate)
