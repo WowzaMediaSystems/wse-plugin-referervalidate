@@ -1,6 +1,8 @@
 # RefererValidate 
 The **RefererValidate** module and HTTP Provider for [Wowza Streaming Engine™ media server software](https://www.wowza.com/products/streaming-engine) can be used to control access to your streams based on the referer domain. It is designed for use with players that aren't RTMP-based, and uses an image tag or JavaScript added to the player webpage to validate the requester.
 
+This repo includes a [compiled version](/lib/wse-plugin-referervalidate.jar).
+
 ## Prerequisites
 Wowza Streaming Engine 4.0.3 or later is required.
 
@@ -14,13 +16,13 @@ Where the **[stream-path]** is the stream path in the player (such as **vod/samp
 When an HTTP request is sent to a Wowza Streaming Engine media server by an image tag or JavaScript on the player webpage,the **RefererValidate** module validates it based on the domain from which the request originated. After the requester is validated, the session information is stored and an image is returned; the image can be the default 1x1-pixel transparent GIF or a different image configured for each stream. If the request isn't validated, you can return the default 404 error code or a different HTTP error code that you've configured.
 
 ## More resources
+To use the compiled version of this module, see [Control access to your application by checking referer domain with a Wowza Streaming Engine Java module](https://www.wowza.com/docs/how-to-control-access-to-your-application-by-checking-referer-domain-modulereferervalidate).
+
 [Wowza Streaming Engine Server-Side API Reference](https://www.wowza.com/resources/serverapi/)
 
-[How to extend Wowza Streaming Engine using the Wowza IDE](https://www.wowza.com/forums/content.php?759-How-to-extend-Wowza-Streaming-Engine-using-the-Wowza-IDE)
+[How to extend Wowza Streaming Engine using the Wowza IDE](https://www.wowza.com/docs/how-to-extend-wowza-streaming-engine-using-the-wowza-ide)
 
-Wowza Media Systems™ provides developers with a platform to create streaming applications and solutions. See [Wowza Developer Tools](https://www.wowza.com/resources/developers) to learn more about our APIs and SDK.
-
-To use the compiled version of this module, see [How to control access to your application by checking referer domain](https://www.wowza.com/forums/content.php?614-How-to-control-access-to-your-application-by-checking-referer-domain-(RefererValidate)).
+Wowza Media Systems™ provides developers with a platform to create streaming applications and solutions. See [Wowza Developer Tools](https://www.wowza.com/developers) to learn more about our APIs and SDK.
 
 ## Contact
 [Wowza Media Systems, LLC](https://www.wowza.com/contact)
