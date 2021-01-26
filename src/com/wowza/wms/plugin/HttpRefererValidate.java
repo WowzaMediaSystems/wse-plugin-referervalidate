@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +19,6 @@ import java.util.SortedSet;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeSet;
-
-import javax.activation.MimetypesFileTypeMap;
 
 import com.wowza.util.Base64;
 import com.wowza.util.StringUtils;
@@ -37,8 +36,6 @@ import com.wowza.wms.httpstreamer.model.IHTTPStreamerSession;
 import com.wowza.wms.logging.WMSLogger;
 import com.wowza.wms.logging.WMSLoggerFactory;
 import com.wowza.wms.logging.WMSLoggerIDs;
-import com.wowza.wms.plugin.RefererValidate;
-import com.wowza.wms.plugin.SessionInfo;
 import com.wowza.wms.rtp.model.RTPSession;
 import com.wowza.wms.stream.IMediaStream;
 import com.wowza.wms.vhost.HostPort;
@@ -465,10 +462,14 @@ public class HttpRefererValidate extends HTTProvider2Base
 
 		if (!StringUtils.isEmpty(path))
 		{
-			MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
-			File file = new File(path);
-			if (file.exists() && file.isFile())
-				mimeType = mimeTypesMap.getContentType(file);
+			try
+			{
+				mimeType = Files.probeContentType(Paths.get(path));
+			}
+			catch (IOException e)
+			{
+				logger.error(CLASS_NAME + "getMimeType IOException: " + e.toString(), e);
+			}
 		}
 
 		return mimeType;
